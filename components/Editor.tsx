@@ -23,6 +23,10 @@ export default function Editor() {
 
   // run autosave on input
   const handleInput = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    const hasText = (el.innerText || "").trim().length > 0;
+    el.dataset.empty = hasText ? "false" : "true";
     queueSave();
   }, [queueSave]);
 
@@ -41,6 +45,7 @@ export default function Editor() {
         caret-rose-400 selection:bg-rose-500/30
       "
       data-placeholder="Start writing…"
+      data-empty="true"
     />
   );
 }
