@@ -34,12 +34,6 @@ body {
 /* Nice editor styles */
 /*  */
 /*  */
-/* Show placeholder text inside empty contentEditable */
-[contenteditable]:empty::before {
-  content: attr(placeholder);
-  color: #6b7280; /* gray-500 */
-  pointer-events: none;
-}
 
 /* Hide scrollbar but allow scrolling */
 .editor::-webkit-scrollbar {
@@ -52,3 +46,21 @@ body {
   mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
 }
+
+/* Show placeholder when we say it's empty (don't rely on :empty) */
+[contenteditable][data-placeholder][data-empty="true"]::before {
+  content: attr(data-placeholder);
+  color: #6b7280; /* gray-500 */
+  pointer-events: none;
+}
+
+/* Optional: hide placeholder while focused if you prefer */
+[contenteditable][data-placeholder][data-empty="true"]:focus::before {
+  content: attr(data-placeholder);
+}
+
+/* Ensure newlines render as expected in the editor */
+[contenteditable] {
+  white-space: pre-wrap;
+}
+
