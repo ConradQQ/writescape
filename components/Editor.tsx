@@ -4,15 +4,20 @@ import { useRef, useCallback, useEffect } from "react";
 import useAutosave from "@/lib/useAutosave";
 
 
-
 export default function Editor() {
   const ref = useRef<HTMLDivElement | null> (null);
 
-  // load saved draft 
+  // on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const saved = localStorage.getItem("ws:doc:current");
-    if (ref.current && saved) ref.current.innerText = saved;
+
+  // Verifys if there's saved text in localStorage
+    const savedText = localStorage.getItem("ws:doc:current");
+    if (ref.current) {
+      ref.current.dataset.empty = savedText ? "false" : "true";
+      if (savedText) ref.current.innerText = savedText;
+    }
+    
   }, []);
 
   // returns current text content
