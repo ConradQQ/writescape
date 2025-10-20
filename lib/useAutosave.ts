@@ -36,5 +36,5 @@ export default function useAutosave(
     };
   }, [save]);
 
-  return queueSave; // call this whenever content changes
+  return queueSave;
 }
