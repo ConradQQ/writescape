@@ -12,12 +12,11 @@ export default function Editor() {
     if (typeof window === "undefined") return;
 
   // Verifys if there's saved text in localStorage
-    const savedText = localStorage.getItem("ws:doc:current");
+    const savedText = localStorage.getItem("ws:doc:current")?.trim();
     if (ref.current) {
       ref.current.dataset.empty = savedText ? "false" : "true";
       if (savedText) ref.current.innerText = savedText;
     }
-    
   }, []);
 
   // returns current text content
